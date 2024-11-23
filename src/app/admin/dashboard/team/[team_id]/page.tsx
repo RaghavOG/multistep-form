@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Loader2, Mail, Phone, FileText, Archive, Trash2 } from "lucide-react";
+import { Loader2, Mail, Phone, FileText, Archive, Trash2, ArrowLeft } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -29,6 +29,7 @@ interface Team {
 
 export default function TeamDetails() {
   const params = useParams();
+  const router = useRouter();
   const team_id = params.team_id as string;
   const [team, setTeam] = useState<Team | null>(null);
   const [error, setError] = useState<string>("");
@@ -102,6 +103,17 @@ export default function TeamDetails() {
 
   return (
     <div className="min-h-screen bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto mb-6">
+        <Button
+          variant="outline"
+          className="flex items-center gap-2 text-black-300 "
+          onClick={() => router.back()}
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back
+        </Button>
+      </div>
+
       <Card className="max-w-4xl mx-auto shadow-2xl bg-gray-800 border-gray-700">
         <CardHeader className="border-b border-gray-700 bg-gradient-to-r from-gray-800 to-gray-700">
           <CardTitle className="text-4xl font-bold text-gray-100">{team.team_name}</CardTitle>

@@ -38,10 +38,10 @@ interface MemberData {
   name: string;
   gender: string;
   email: string;
-  contact: string;
+  contact: number;
   college: string;
   stream: string;
-  year: string;
+  year: number;
 }
 
 interface Errors {
@@ -87,6 +87,7 @@ function MultiStepForm() {
       if (!member.college) newErrors[`college${index}`] = "College is required";
       if (!member.stream) newErrors[`stream${index}`] = "Stream is required";
       if (!member.year) newErrors[`year${index}`] = "Year is required";
+      if (isNaN(member.year)) newErrors[`year${index}`] = "Year must be a number";
       if (!member.gender) newErrors[`gender${index}`] = "Gender is required";
       
       // Validate email format
@@ -97,7 +98,7 @@ function MultiStepForm() {
 
       // Validate contact number (assuming 10 digits)
       const contactRegex = /^\d{10}$/;
-      if (member.contact && !contactRegex.test(member.contact)) {
+      if (member.contact && !contactRegex.test(member.contact.toString())) {
         newErrors[`contact${index}`] = "Please enter a valid 10-digit contact number";
       }
     });
@@ -207,10 +208,10 @@ function MultiStepForm() {
           name: "",
           gender: "",
           email: "",
-          contact: "",
+          contact: 0,
           college: "",
-          stream: "",
-          year: "",
+          stream: "", 
+          year: 0,
         });
       }
       return newData.slice(0, numTeammates);
